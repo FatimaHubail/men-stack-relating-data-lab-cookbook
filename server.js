@@ -16,6 +16,7 @@ const addUserToViews = require('./middleware/addUserToViews');
 
 // CONTROLLERS
 const authCtrl = require('./controllers/authCtrl');
+const foodsCtrl = require('./controllers/foodsCtrl');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -31,7 +32,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI }),
   })
 );
 
@@ -53,9 +54,10 @@ app.use(isSignedIn);
 // PRIVATE ROUTES
 app.get('/auth/sign-out', authCtrl.signout);
 
-app.get('/protected', async (req, res) => {
-  res.send(`You are logged in as ${req.session.user.username}`);
-});
+// Foods
+app.get('/users/:id/foods', foodsCtrl.index);
+app.get('/users/:id/foods/new', foodsCtrl.newFood);
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
