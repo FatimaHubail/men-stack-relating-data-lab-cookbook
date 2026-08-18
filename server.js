@@ -57,7 +57,11 @@ app.get('/auth/sign-out', authCtrl.signout);
 // Foods
 app.get('/users/:id/foods', foodsCtrl.index);
 app.get('/users/:id/foods/new', foodsCtrl.newFood);
-
+app.post('/users/:id/foods/new', foodsCtrl.create);
+app.get('/users/:id/foods/:itemId', foodsCtrl.show);
+app.delete('/users/:id/foods/:itemId', foodsCtrl.deleteItem);
+app.get('/users/:id/foods/:itemId/edit', foodsCtrl.edit);
+app.put('/users/:id/foods/:itemId', foodsCtrl.update);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

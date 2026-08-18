@@ -7,6 +7,6 @@
   </head>
   <body>
     <%- include('./partials/_navbar.ejs') %>
-      <h1>Welcome to CookBook, <%= user.username %>!</h1>
+      <h1>Welcome to CookBook<%= user ? `, ${user.username}` : '' %>!</h1>
   </body>
 </html>

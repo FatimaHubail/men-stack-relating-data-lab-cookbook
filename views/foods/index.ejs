@@ -8,8 +8,32 @@
 </head>
 
 <body>
-    <%- include('./partials/_navbar.ejs') %>
+    <%- include('../partials/_navbar.ejs') %>
     <h1>Welcome to my Pantry</h1>
+    <a href="/users/<%= user._id %>/foods/new">Add New Item</a>
+
+    <!-- Items -->
+    <ul>
+        <% if (foods.length===0) { %>
+            <p>There are no items in this pantry</p>
+            <% } else { %>
+                <% foods.forEach((item)=> { %>
+                    <li>
+                        <%= item.name %>
+
+                        
+
+                    <a href="/users/<%= user._id %>/foods/<%= item._id %>/edit" class="btn">
+                        Edit Item
+                    </a>
+
+                        <form action="/users/<%= user._id %>/foods/<%= item._id %>?_method=DELETE" method="POST">
+                            <button type="submit">Delete Item</button>
+                        </form>
+                    </li>
+                    <% }) %>
+                        <% } %>
+    </ul>
 </body>
 
 </html>
