@@ -20,9 +20,19 @@ const userSchema = new mongoose.Schema({
   },
 
   pantry: [foodSchema],
-});
-// initial the model
 
+  recipes: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe',
+  },
+
+  ingredients: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Ingredient',
+  }
+});
+
+// initialize the model
 const User = mongoose.model('User', userSchema);
 
 // export it

@@ -13,10 +13,13 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const isSignedIn = require('./middleware/isSignedIn');
 const addUserToViews = require('./middleware/addUserToViews');
+const currentPath = require('./middleware/currentPath');
 
 // CONTROLLERS
 const authCtrl = require('./controllers/authCtrl');
 const foodsCtrl = require('./controllers/foodsCtrl');
+const recipesCtrl = require('./controllers/recipesCtrl');
+const ingredientsCtrl = require('./controllers/ingredientsCtrl');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -37,6 +40,7 @@ app.use(
 );
 
 app.use(addUserToViews);
+app.use(currentPath);
 
 // PUBLIC ROUTES
 app.get('/', async (req, res) => {

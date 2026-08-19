@@ -1,11 +1,12 @@
 const { render } = require('ejs');
 const User = require('../models/user.js');
+const Recipe = require('../models/recipe.js');
 
 // index route
 const index = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        res.render('foods/index.ejs', {foods: user.pantry});
+        res.render('foods/index.ejs', { foods: user.pantry });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -20,7 +21,7 @@ const newFood = async (req, res) => {
         console.log(error);
         res.redirect('/');
     }
-} 
+}
 
 // route to add item to pantry
 const create = async (req, res) => {
@@ -39,7 +40,7 @@ const create = async (req, res) => {
 const show = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId); 
+        const item = user.pantry.id(req.params.itemId);
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -66,13 +67,13 @@ const update = async (req, res) => {
         item.set(req.body);
         await user.save();
         res.redirect(`/users/${user._id}/foods`);
-        
+
     } catch (error) {
         console.log(error);
-        res.redirect('/'); 
+        res.redirect('/');
     }
 }
- 
+
 // Delete item route
 const deleteItem = async (req, res) => {
     try {
