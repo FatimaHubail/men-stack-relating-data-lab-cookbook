@@ -31,20 +31,9 @@ const create = async (req, res) => {
         res.redirect(`/users/${user._id}/foods`);
     } catch (error) {
         console.log(error);
-        res.redirect(`/users/${user._id}/foods/new`);
+        res.redirect(`/users/${req.params.id}/foods/new`);
     }
-}
-
-// route to display pantry items
-const show = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId); 
-    } catch (error) {
-        console.log(error);
-        res.redirect('/');
-    }
-}
+};
 
 // route to show the edit page
 const edit = async (req, res) => {
@@ -91,7 +80,6 @@ module.exports = {
     index,
     newFood,
     create,
-    show,
     deleteItem,
     edit,
     update,

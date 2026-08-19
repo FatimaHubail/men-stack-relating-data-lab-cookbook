@@ -72,7 +72,7 @@ const update = async (req, res) => {
             req.body.ingredients = [];
         }
         await Recipe.findByIdAndUpdate(req.params.recipeId, req.body, { new: true });
-        res.redirect(`/users/${req.params.id}/recipes`);
+        res.redirect(`/users/${req.params.id}/recipes/${req.params.recipeId}`);
 
     } catch (error) {
         console.log(error);

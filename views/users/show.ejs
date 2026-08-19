@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= otherUser.username %>'s Pantry
+    </title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar') %>
+        <h1>
+            <%= otherUser.username %>'s Pantry
+        </h1>
+
+        <ul>
+            <% if (otherUser.pantry.length===0) { %>
+                <p>This pantry is empty.</p>
+                <% } else { %>
+                    <% otherUser.pantry.forEach((item)=> { %>
+                        <li>
+                            <%= item.name %>
+                        </li>
+                        <% }) %>
+                            <% } %>
+        </ul>
+
+        <a href="/users">Back to Community</a>
+</body>
+
+</html>

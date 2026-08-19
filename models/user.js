@@ -20,16 +20,6 @@ const userSchema = new mongoose.Schema({
   },
 
   pantry: [foodSchema],
-
-  recipes: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Recipe',
-  },
-
-  ingredients: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ingredient',
-  }
 });
 
 // initialize the model
