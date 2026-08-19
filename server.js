@@ -15,10 +15,12 @@ const isSignedIn = require('./middleware/isSignedIn');
 const addUserToViews = require('./middleware/addUserToViews');
 const currentPath = require('./middleware/currentPath');
 
+// ROUTERS
+const authRouter = require('./routes/authRouter');
+const foodsRouter = require('./routes/foodsRouter');
+const recipesRouter = require('./routes/recipesRouter');
+
 // CONTROLLERS
-const authCtrl = require('./controllers/authCtrl');
-const foodsCtrl = require('./controllers/foodsCtrl');
-const recipesCtrl = require('./controllers/recipesCtrl');
 const ingredientsCtrl = require('./controllers/ingredientsCtrl');
 
 // Set the port from environment variable or default to 3000
@@ -47,26 +49,16 @@ app.get('/', async (req, res) => {
   res.render('index.ejs');
 });
 
-app.get('/auth/sign-up', authCtrl.signup);
-app.post('/auth/sign-up', authCtrl.register);
-app.get('/auth/sign-in', authCtrl.signin);
-app.post('/auth/sign-in', authCtrl.login);
+app.use('/auth', authRouter);
 
 // Customer middleware
 app.use(isSignedIn);
 
-// PRIVATE ROUTES
-app.get('/auth/sign-out', authCtrl.signout);
-
 // Foods
-app.get('/users/:id/foods', foodsCtrl.index);
-app.get('/users/:id/foods/new', foodsCtrl.newFood);
-app.post('/users/:id/foods/new', foodsCtrl.create);
-app.get('/users/:id/foods/:itemId', foodsCtrl.show);
-app.delete('/users/:id/foods/:itemId', foodsCtrl.deleteItem);
-app.get('/users/:id/foods/:itemId/edit', foodsCtrl.edit);
-app.put('/users/:id/foods/:itemId', foodsCtrl.update);
+app.use('/users/:id/foods', foodsRouter);
 
+// Recipes
+app.use('/users/:id/recipes', recipesRouter);
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });

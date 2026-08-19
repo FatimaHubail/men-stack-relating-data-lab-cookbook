@@ -5,8 +5,8 @@ const Recipe = require('../models/recipe.js');
 // index route
 const index = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        res.render('foods/index.ejs', { foods: user.pantry });
+        const recipes = await Recipe.find({ owner: req.params.id });
+        res.render('recipes/index.ejs', { recipes });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -14,9 +14,9 @@ const index = async (req, res) => {
 };
 
 // route to render the 'add item' form 
-const newFood = async (req, res) => {
+const newRecipe = async (req, res) => {
     try {
-        res.render('foods/new.ejs');
+        res.render('recipes/new.ejs', { userId: req.params.id });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -26,21 +26,20 @@ const newFood = async (req, res) => {
 // route to add item to pantry
 const create = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        user.pantry.push(req.body);
-        await user.save();
-        res.redirect(`/users/${user._id}/foods`);
+        req.body.owner = req.params.id;
+        await Recipe.create(req.body);
+        res.redirect(`/users/${req.params.id}/recipes`);
     } catch (error) {
         console.log(error);
-        res.redirect(`/users/${user._id}/foods/new`);
+        res.redirect(`/users/${req.params.id}/recipes/new`);
     }
 }
 
 // route to display pantry items
 const show = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId);
+        const recipe = await Recipe.findById(req.params.recipeId).populate('ingredients');
+        res.render('recipes/show.ejs', { recipe, userId: req.params.id });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -50,9 +49,8 @@ const show = async (req, res) => {
 // route to show the edit page
 const edit = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId);
-        res.render('foods/edit.ejs', { item });
+        const recipe = await Recipe.findById(req.params.recipeId);
+        res.render('recipes/edit.ejs', { recipe, userId: req.params.id });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -62,11 +60,8 @@ const edit = async (req, res) => {
 // update route
 const update = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId);
-        item.set(req.body);
-        await user.save();
-        res.redirect(`/users/${user._id}/foods`);
+        await Recipe.findByIdAndUpdate(req.params.recipeId, req.body, { new: true });
+        res.redirect(`/users/${req.params.id}/recipes`);
 
     } catch (error) {
         console.log(error);
@@ -75,12 +70,10 @@ const update = async (req, res) => {
 }
 
 // Delete item route
-const deleteItem = async (req, res) => {
+const deleteRecipe = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        user.pantry.pull(req.params.itemId);
-        await user.save();
-        res.redirect(`/users/${user._id}/foods`)
+        await Recipe.findByIdAndDelete(req.params.recipeId);
+        res.redirect(`/users/${req.params.id}/recipes`);
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -90,10 +83,10 @@ const deleteItem = async (req, res) => {
 
 module.exports = {
     index,
-    newFood,
+    newRecipe,
     create,
     show,
-    deleteItem,
+    deleteRecipe,
     edit,
     update,
 };

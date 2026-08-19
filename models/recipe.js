@@ -16,10 +16,10 @@ const recipeSchema = new mongoose.Schema({
         required: true,
     },
 
-    ingredients: {
+    ingredients: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ingredient', 
-    }
+    }]
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
