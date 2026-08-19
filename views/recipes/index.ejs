@@ -19,7 +19,7 @@
                 <% } else { %>
                     <% recipes.forEach((recipe)=> { %>
                         <li>
-                            <%= recipe.name %>
+                            <a href="/users/<%= user._id %>/recipes/<%= recipe._id %>"><%= recipe.name %></a>
                         </li>
                         <% }) %>
                             <% } %>

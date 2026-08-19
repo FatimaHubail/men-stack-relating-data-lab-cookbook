@@ -1,6 +1,7 @@
 const { render } = require('ejs');
 const User = require('../models/user.js');
 const Recipe = require('../models/recipe.js');
+const Ingredient = require('../models/ingredient.js');
 
 // index route
 const index = async (req, res) => {
@@ -16,7 +17,8 @@ const index = async (req, res) => {
 // route to render the 'add item' form 
 const newRecipe = async (req, res) => {
     try {
-        res.render('recipes/new.ejs', { userId: req.params.id });
+        const ingredients = await Ingredient.find({});
+        res.render('recipes/new.ejs', { userId: req.params.id , ingredients });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -27,6 +29,9 @@ const newRecipe = async (req, res) => {
 const create = async (req, res) => {
     try {
         req.body.owner = req.params.id;
+        if (req.body.ingredients && !Array.isArray(req.body.ingredients)) {
+            req.body.ingredients = [req.body.ingredients];
+        }
         await Recipe.create(req.body);
         res.redirect(`/users/${req.params.id}/recipes`);
     } catch (error) {
@@ -50,7 +55,8 @@ const show = async (req, res) => {
 const edit = async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.recipeId);
-        res.render('recipes/edit.ejs', { recipe, userId: req.params.id });
+        const ingredients = await Ingredient.find({});
+        res.render('recipes/edit.ejs', { recipe, userId: req.params.id, ingredients });
     } catch (error) {
         console.log(error);
         res.redirect('/');
@@ -60,6 +66,11 @@ const edit = async (req, res) => {
 // update route
 const update = async (req, res) => {
     try {
+        if (req.body.ingredients && !Array.isArray(req.body.ingredients)) {
+            req.body.ingredients = [req.body.ingredients];
+        } else if (!req.body.ingredients) {
+            req.body.ingredients = [];
+        }
         await Recipe.findByIdAndUpdate(req.params.recipeId, req.body, { new: true });
         res.redirect(`/users/${req.params.id}/recipes`);
 

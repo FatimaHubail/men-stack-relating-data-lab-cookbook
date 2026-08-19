@@ -19,9 +19,7 @@ const currentPath = require('./middleware/currentPath');
 const authRouter = require('./routes/authRouter');
 const foodsRouter = require('./routes/foodsRouter');
 const recipesRouter = require('./routes/recipesRouter');
-
-// CONTROLLERS
-const ingredientsCtrl = require('./controllers/ingredientsCtrl');
+const ingredientsRouter = require('./routes/ingredientsRouter');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -59,6 +57,11 @@ app.use('/users/:id/foods', foodsRouter);
 
 // Recipes
 app.use('/users/:id/recipes', recipesRouter);
+
+// Ingredients
+app.use('/ingredients', ingredientsRouter);
+
+
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });

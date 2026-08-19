@@ -17,11 +17,20 @@
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" value="<%=recipe.name%>" />
 
-            <label for="ingredients">Ingredients:</label>
-            <input type="text" name="ingredients" id="ingredients" value="<%=recipe.ingredients%>" /> 
+            <fieldset>
+                <legend>Ingredients:</legend>
+                <% ingredients.forEach(function(ingredient) { %>
+                    <label>
+                        <input type="checkbox" name="ingredients" value="<%= ingredient._id %>" <% if (recipe.ingredients.some(id=>
+                        id.toString() === ingredient._id.toString())) { %>checked<% } %>
+                            >
+                            <%= ingredient.name %>
+                    </label>
+                    <% }); %>
+            </fieldset>
 
             <label for="instructions">Instructions:</label>
-            <input type="text" name="instructions" id="instructions" value="<%=recipe.instructions%>" />
+            <textarea name="instructions" id="instructions"><%=recipe.instructions%></textarea>
 
             <button type="submit">edit Recipe</button>
         </form>

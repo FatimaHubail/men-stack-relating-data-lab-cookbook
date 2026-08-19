@@ -1,99 +1,33 @@
 const { render } = require('ejs');
-const User = require('../models/user.js');
 const Ingredient = require('../models/ingredient.js');
 
-// index route
+// index route to list all ingredients and show the add form on the same page
 const index = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        res.render('foods/index.ejs', { foods: user.pantry });
+        const ingredients = await Ingredient.find({});
+        res.render('ingredients/index.ejs', { ingredients });
     } catch (error) {
         console.log(error);
         res.redirect('/');
     }
 };
 
-// route to render the 'add item' form 
-const newFood = async (req, res) => {
-    try {
-        res.render('foods/new.ejs');
-    } catch (error) {
-        console.log(error);
-        res.redirect('/');
-    }
-}
-
-// route to add item to pantry
+// route to add ingredient
 const create = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        user.pantry.push(req.body);
-        await user.save();
-        res.redirect(`/users/${user._id}/foods`);
+        const existingIngredient = await Ingredient.findOne({ name: req.body.name.trim() });
+        if (!existingIngredient) {
+            await Ingredient.create({ name: req.body.name.trim() });
+        }
+        res.redirect('/ingredients');
     } catch (error) {
         console.log(error);
-        res.redirect(`/users/${user._id}/foods/new`);
-    }
-}
-
-// route to display pantry items
-const show = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId);
-    } catch (error) {
-        console.log(error);
-        res.redirect('/');
-    }
-}
-
-// route to show the edit page
-const edit = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId);
-        res.render('foods/edit.ejs', { item });
-    } catch (error) {
-        console.log(error);
-        res.redirect('/');
+        res.redirect('/ingredients');
     }
 };
-
-// update route
-const update = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const item = user.pantry.id(req.params.itemId);
-        item.set(req.body);
-        await user.save();
-        res.redirect(`/users/${user._id}/foods`);
-
-    } catch (error) {
-        console.log(error);
-        res.redirect('/');
-    }
-}
-
-// Delete item route
-const deleteItem = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        user.pantry.pull(req.params.itemId);
-        await user.save();
-        res.redirect(`/users/${user._id}/foods`)
-    } catch (error) {
-        console.log(error);
-        res.redirect('/');
-    }
-}
 
 
 module.exports = {
     index,
-    newFood,
     create,
-    show,
-    deleteItem,
-    edit,
-    update,
 };
