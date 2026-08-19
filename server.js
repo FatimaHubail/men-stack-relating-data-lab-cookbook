@@ -25,6 +25,9 @@ const userRouter = require('./routes/userRouter');
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
 
+// Serve static files from /public
+app.use(express.static('public'));
+
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));
 // Middleware for using HTTP verbs such as PUT or DELETE

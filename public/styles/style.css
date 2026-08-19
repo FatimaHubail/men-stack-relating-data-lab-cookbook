@@ -1,0 +1,285 @@
+/* ==========================================================================
+   CookBook — funky cooking theme (centered)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+    --cream: #FFF3DD;
+    --cream-dark: #F5E6C4;
+    --tomato: #E8542E;
+    --tomato-dark: #C43F1D;
+    --mustard: #F2A93B;
+    --basil: #4F7A4A;
+    --basil-dark: #3B5C37;
+    --kraft: #D8B989;
+    --ink: #2E2118;
+
+    --font-display: 'Caveat', cursive;
+    --font-body: 'Quicksand', sans-serif;
+
+    --radius: 14px;
+    --shadow-soft: 0 4px 0 var(--kraft);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(var(--kraft) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: -11px -11px;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.55;
+}
+
+/* ---------- Centered page container ---------- */
+
+.page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+}
+
+/* ---------- Nav (full-width, sits above the centered container) ---------- */
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1rem;
+    background-color: var(--basil);
+    padding: 0.9rem 1.5rem;
+    border-bottom: 6px solid var(--basil-dark);
+}
+
+nav a {
+    font-family: var(--font-display);
+    color: #fff;
+    border: none;
+    font-size: 1.35rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+
+/* ---------- Headings ---------- */
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--tomato-dark);
+    letter-spacing: 0.3px;
+    margin: 1.4rem 0 0.6rem;
+}
+
+h1 {
+    font-size: clamp(2.6rem, 7vw, 3.6rem);
+    display: block;
+    text-align: center;
+    padding: 0.2rem 0.3rem 0.9rem;
+    position: relative;
+}
+
+/* signature "pie-crust" scalloped underline */
+h1::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: min(320px, 90%);
+    height: 10px;
+    background-image: radial-gradient(circle at 8px 0, transparent 7px, var(--mustard) 7.5px);
+    background-size: 16px 10px;
+    background-repeat: repeat-x;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: var(--basil-dark);
+}
+
+h3 {
+    font-size: 1.15rem;
+    color: var(--tomato-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    max-width: 62ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------- Links & buttons ---------- */
+
+a {
+    color: var(--tomato-dark);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px dashed var(--tomato);
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a:hover {
+    color: var(--basil-dark);
+    border-color: var(--basil);
+}
+
+button,
+input[type="submit"] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #fff;
+    background-color: var(--tomato);
+    border: none;
+    border-radius: 999px;
+    padding: 0.55rem 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--tomato-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--kraft);
+}
+
+button:active,
+input[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 0 var(--kraft);
+}
+
+/* ---------- Forms ---------- */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 480px;
+    background-color: #fff;
+    border: 2px dashed var(--kraft);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    margin: 1rem auto;
+}
+
+label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--basil-dark);
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 2px solid var(--kraft);
+    border-radius: 8px;
+    background-color: var(--cream);
+    color: var(--ink);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--tomato);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+fieldset {
+    border: 2px dashed var(--kraft);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+}
+
+fieldset legend {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--tomato-dark);
+    padding: 0 0.4rem;
+}
+
+fieldset label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0.3rem 0;
+}
+
+/* ---------- Lists / recipe & pantry cards ---------- */
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: grid;
+    gap: 0.9rem;
+}
+
+ul li {
+    background-color: #fff;
+    border: 2px dashed var(--kraft);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+ul li:hover {
+    transform: rotate(-0.6deg) translateY(-2px);
+    box-shadow: 0 6px 14px rgba(46, 33, 24, 0.12);
+}
+
+ul li a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    border: none;
+}
+
+ul li form {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    max-width: none;
+}
