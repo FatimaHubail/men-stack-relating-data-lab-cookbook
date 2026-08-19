@@ -15,7 +15,7 @@
 
     <h3>Ingredients</h3>
     <% if (recipe.ingredients && recipe.ingredients.length) { %>
-        <ul>
+        <ul class="grid-list">
             <% recipe.ingredients.forEach(function(ingredient) { %>
                 <li>
                     <%= ingredient.name %>

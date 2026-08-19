@@ -12,7 +12,7 @@
     <%- include('../partials/_navbar') %>
         <h1>Our Community</h1>
 
-        <ul>
+        <ul class="grid-list">
             <% users.forEach((otherUser)=> { %>
                 <li>
                     <a href="/users/<%= otherUser._id %>">

@@ -49,7 +49,7 @@ body {
     padding: 2.5rem 2rem 4rem;
 }
 
-/* ---------- Nav (full-width, sits above the centered container) ---------- */
+/* ---------- Nav ---------- */
 
 nav {
     display: flex;
@@ -97,7 +97,6 @@ h1 {
     position: relative;
 }
 
-/* signature "pie-crust" scalloped underline */
 h1::after {
     content: "";
     position: absolute;
@@ -106,7 +105,9 @@ h1::after {
     bottom: 0;
     width: min(320px, 90%);
     height: 10px;
-    background-image: radial-gradient(circle at 8px 0, transparent 7px, var(--mustard) 7.5px);
+    background-image: radial-gradient(circle at 8px 0,
+            transparent 7px,
+            var(--mustard) 7.5px);
     background-size: 16px 10px;
     background-repeat: repeat-x;
 }
@@ -159,7 +160,10 @@ input[type="submit"] {
     padding: 0.55rem 1.5rem;
     cursor: pointer;
     box-shadow: var(--shadow-soft);
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background-color 0.12s ease;
 }
 
 button:hover,
@@ -241,7 +245,7 @@ fieldset label {
     margin: 0.3rem 0;
 }
 
-/* ---------- Lists / recipe & pantry cards ---------- */
+/* ---------- Lists ---------- */
 
 ul {
     list-style: none;
@@ -250,6 +254,27 @@ ul {
     display: grid;
     gap: 0.9rem;
 }
+
+/* ---------- Pantry, Recipes & Community Grid ---------- */
+
+.grid-list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+/* ---------- Grid Cards ---------- */
+
+.grid-list li {
+    min-height: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+/* ---------- List Cards ---------- */
 
 ul li {
     background-color: #fff;
@@ -261,7 +286,9 @@ ul li {
     justify-content: space-between;
     gap: 0.8rem;
     flex-wrap: wrap;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 ul li:hover {
@@ -269,17 +296,162 @@ ul li:hover {
     box-shadow: 0 6px 14px rgba(46, 33, 24, 0.12);
 }
 
-ul li a {
-    font-family: var(--font-display);
-    font-weight: 600;
+/* ---------- Item Name ---------- */
+
+ul li>a:not(.edit-btn) {
+    font-family: var(--font-body);
+    font-weight: 500;
     font-size: 1.5rem;
     border: none;
 }
 
-ul li form {
+/* ---------- Item Actions ---------- */
+
+.item-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Delete form should NOT inherit the normal form styling */
+
+.item-actions form {
+    display: block;
+    width: auto;
+    min-width: 0;
+    max-width: none;
     margin: 0;
     padding: 0;
+    background: transparent;
     border: none;
-    background: none;
-    max-width: none;
+}
+
+/* ---------- Edit Button ---------- */
+
+.item-actions a.edit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 110px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+
+    height: 38px;
+    min-height: 38px;
+    max-height: 38px;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+
+    white-space: nowrap;
+    text-align: center;
+
+    color: #fff !important;
+    background-color: var(--mustard) !important;
+
+    text-decoration: none !important;
+    border: none !important;
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 0 var(--kraft);
+
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background-color 0.12s ease;
+}
+
+.item-actions a.edit-btn:hover {
+    background-color: #D89024 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--kraft);
+}
+
+/* ---------- Delete Button ---------- */
+
+.item-actions form button.delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 110px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+
+    height: 38px;
+    min-height: 38px;
+    max-height: 38px;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+
+    white-space: nowrap;
+    text-align: center;
+
+    color: #fff !important;
+    background-color: var(--tomato) !important;
+
+    text-decoration: none !important;
+    border: none !important;
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 0 var(--kraft);
+
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background-color 0.12s ease;
+}
+
+.item-actions form button.delete-btn:hover {
+    background-color: var(--tomato-dark) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--kraft);
+}
+
+/* ---------- Button Active State ---------- */
+
+.item-actions a.edit-btn:active,
+.item-actions form button.delete-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 0 var(--kraft);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+    .page {
+        padding: 2rem 1rem 3rem;
+    }
+
+    .grid-list {
+        grid-template-columns: 1fr;
+    }
 }

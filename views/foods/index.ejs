@@ -14,7 +14,7 @@
     <a href="/users/<%= user._id %>/foods/new">Add New Item</a>
 
     <!-- Items -->
-    <ul>
+    <ul class="grid-list">
         <% if (foods.length===0) { %>
             <p>There are no items in this pantry</p>
             <% } else { %>
@@ -23,14 +23,16 @@
                         <%= item.name %>
 
                         
-
-                    <a href="/users/<%= user._id %>/foods/<%= item._id %>/edit" class="btn">
+                        <div class="item-actions">
+                            <a href="/users/<%= user._id %>/foods/<%= item._id %>/edit" class="edit-btn">
                         Edit Item
-                    </a>
+                        </a>
 
-                        <form action="/users/<%= user._id %>/foods/<%= item._id %>?_method=DELETE" method="POST">
+                        <form action="/users/<%= user._id %>/foods/<%= item._id %>?_method=DELETE" method="POST" class="delete-btn">
                             <button type="submit">Delete Item</button>
                         </form>
+                        </div>
+                    
                     </li>
                     <% }) %>
                         <% } %>
