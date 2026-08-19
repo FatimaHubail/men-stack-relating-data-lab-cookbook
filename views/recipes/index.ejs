@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Recipes</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar') %>
+        <h1>Welcome to my Recipes</h1>
+        <a href="/users/<%= user._id %>/recipes/new">Add New Recipe</a>
+
+        <!-- Recipes -->
+        <ul>
+            <% if (recipes.length===0) { %>
+                <p>There are no recipes in this collection</p>
+                <% } else { %>
+                    <% recipes.forEach((recipe)=> { %>
+                        <li>
+                            <%= recipe.name %>
+                        </li>
+                        <% }) %>
+                            <% } %>
+        </ul>
+</body>
+
+</html>

@@ -7,10 +7,10 @@ const router = express.Router({mergeParams: true});
 router.get('', recipesCtrl .index);
 router.get('/new', recipesCtrl.newRecipe);
 router.post('/new', recipesCtrl.create);
-router.get('/:itemId', recipesCtrl.show);
-router.get('/:itemId/edit', recipesCtrl.edit);
-router.put('/:itemId', recipesCtrl.update);
-router.delete('/:itemId', recipesCtrl.deleteItem);
+router.get('/:recipeId', recipesCtrl.show);
+router.get('/:recipeId/edit', recipesCtrl.edit);
+router.put('/:recipeId', recipesCtrl.update);
+router.delete('/:recipeId', recipesCtrl.deleteRecipe);
 
 
 module.exports = router;
