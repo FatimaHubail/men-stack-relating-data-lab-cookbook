@@ -8,6 +8,8 @@
   </head>
   <body>
     <%- include('./partials/_navbar') %>
-      <h1>Welcome to CookBook<%= user ? `, ${user.username}` : '' %>!</h1>
+      <h1>
+        <%= user ? `Chef ${user.username} Has Entered the Kitchen!` : 'Your Recipe Playground Awaits!' %>
+      </h1>
   </body>
 </html>

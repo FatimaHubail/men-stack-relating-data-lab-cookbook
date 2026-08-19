@@ -26,18 +26,23 @@
             <p>No ingredients added yet.</p>
             <% } %>
 
-            <h3>Instructions</h3>
-            <p>
-                <%= recipe.instructions %>
-            </p>
+            <fieldset class="instructions-box">
+                <legend>Instructions:</legend>
+                <p>
+                    <%= recipe.instructions %>
+                </p>
+            </fieldset>
 
-                <a href="/users/<%= userId %>/recipes/<%= recipe._id %>/edit">Edit Recipe</a>
+                <div class="recipe-actions">
+                    <a class="edit-btn" href="/users/<%= userId %>/recipes/<%= recipe._id %>/edit">
+                        Edit Recipe
+                    </a>
+                
+                    <form action="/users/<%= userId %>/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+                        <button class="delete-btn" type="submit">Delete Recipe</button>
+                    </form>
+                </div>
 
-                <form action="/users/<%= userId %>/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-                    <button type="submit">Delete Recipe</button>
-                </form>
-
-                <a href="/users/<%= userId %>/recipes">Back to Recipes</a>
 
 </body>
 
